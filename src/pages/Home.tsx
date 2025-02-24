@@ -185,8 +185,8 @@ function Home() {
               </div>
 
               <p className="text-gray-400 text-xl max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-                Transform your business with Flixby's intelligent AI assistant. 
-                Experience seamless automation and enhanced customer interactions.
+              Flixby AI answers your business calls 24/7—just like a real assistant.
+              Set it up in minutes, train it on your business, and let AI handle queries, book reservations, and converse naturally
               </p>
 
               <div className="flex items-center justify-center lg:justify-start space-x-4">
