@@ -73,31 +73,35 @@ function AIAssistant({ assistantId }: AIAssistantProps) {
           setError('');
 
           // Only log the call if we're authenticated and have an assistant ID
-          const { data: { session } } = await supabase.auth.getSession();
-          if (session && callStartTime && currentCallId && assistantId) {
-            const endTime = new Date();
-            const durationSeconds = Math.round((endTime.getTime() - callStartTime.getTime()) / 1000);
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session && callStartTime && currentCallId && assistantId) {
+              const endTime = new Date();
+              const durationSeconds = Math.round((endTime.getTime() - callStartTime.getTime()) / 1000);
 
-            try {
-              const { error: dbError } = await supabase
-                .from('call_logs')
-                .insert([
-                  {
-                    call_id: currentCallId,
-                    assistant_id: assistantId,
-                    start_time: callStartTime.toISOString(),
-                    end_time: endTime.toISOString(),
-                    duration_seconds: durationSeconds,
-                    status: 'completed'
-                  }
-                ]);
+              try {
+                const { error: dbError } = await supabase
+                  .from('call_logs')
+                  .insert([
+                    {
+                      call_id: currentCallId,
+                      assistant_id: assistantId,
+                      start_time: callStartTime.toISOString(),
+                      end_time: endTime.toISOString(),
+                      duration_seconds: durationSeconds,
+                      status: 'completed'
+                    }
+                  ]);
 
-              if (dbError) {
-                console.error('Error storing call log:', dbError);
+                if (dbError) {
+                  console.error('Error storing call log:', dbError);
+                }
+              } catch (err) {
+                console.error('Error storing call log:', err);
               }
-            } catch (err) {
-              console.error('Error storing call log:', err);
             }
+          } catch (err) {
+            console.error('Error checking session:', err);
           }
 
           setCallStartTime(null);
@@ -121,32 +125,36 @@ function AIAssistant({ assistantId }: AIAssistantProps) {
           setIsCallActive(false);
 
           // Only log the error if we're authenticated and have an assistant ID
-          const { data: { session } } = await supabase.auth.getSession();
-          if (session && callStartTime && currentCallId && assistantId) {
-            const endTime = new Date();
-            const durationSeconds = Math.round((endTime.getTime() - callStartTime.getTime()) / 1000);
+          try {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session && callStartTime && currentCallId && assistantId) {
+              const endTime = new Date();
+              const durationSeconds = Math.round((endTime.getTime() - callStartTime.getTime()) / 1000);
 
-            try {
-              const { error: dbError } = await supabase
-                .from('call_logs')
-                .insert([
-                  {
-                    call_id: currentCallId,
-                    assistant_id: assistantId,
-                    start_time: callStartTime.toISOString(),
-                    end_time: endTime.toISOString(),
-                    duration_seconds: durationSeconds,
-                    status: 'failed',
-                    error_message: errorMessage
-                  }
-                ]);
+              try {
+                const { error: dbError } = await supabase
+                  .from('call_logs')
+                  .insert([
+                    {
+                      call_id: currentCallId,
+                      assistant_id: assistantId,
+                      start_time: callStartTime.toISOString(),
+                      end_time: endTime.toISOString(),
+                      duration_seconds: durationSeconds,
+                      status: 'failed',
+                      error_message: errorMessage
+                    }
+                  ]);
 
-              if (dbError) {
-                console.error('Error storing failed call log:', dbError);
+                if (dbError) {
+                  console.error('Error storing failed call log:', dbError);
+                }
+              } catch (err) {
+                console.error('Error storing failed call log:', err);
               }
-            } catch (err) {
-              console.error('Error storing failed call log:', err);
             }
+          } catch (err) {
+            console.error('Error checking session:', err);
           }
 
           setCallStartTime(null);
@@ -236,44 +244,44 @@ function AIAssistant({ assistantId }: AIAssistantProps) {
 
   if (isInitializing) {
     return (
-      <div className="relative bg-gray-800/50 backdrop-blur-lg rounded-3xl shadow-2xl p-8 w-full max-w-md mx-auto">
+      <div className="relative bg-gray-800/50 backdrop-blur-lg rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-md mx-auto">
         <div className="flex items-center justify-center space-x-2">
-          <Loader2 className="w-6 h-6 text-green-400 animate-spin" />
-          <span className="text-gray-400">Initializing AI Assistant...</span>
+          <Loader2 className="w-5 h-5 sm:w-6 sm:h-6 text-green-400 animate-spin" />
+          <span className="text-sm sm:text-base text-gray-400">Initializing AI Assistant...</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="relative bg-gray-800/50 backdrop-blur-lg rounded-3xl shadow-2xl p-8 w-full max-w-md mx-auto transform hover:scale-105 transition-all duration-300">
+    <div className="relative bg-gray-800/50 backdrop-blur-lg rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-md mx-auto transform hover:scale-105 transition-all duration-300">
       <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/10 to-green-500/10 animate-pulse"></div>
       <div className="relative z-10">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent mb-2">
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent mb-2">
             AI Assistant
           </h2>
-          <p className="text-gray-300">{status || 'Ready to start'}</p>
+          <p className="text-sm sm:text-base text-gray-300">{status || 'Ready to start'}</p>
           {error && (
-            <div className="mt-2 p-3 bg-red-500/20 border border-red-500/50 rounded-lg flex items-center gap-2 text-red-400 text-sm">
+            <div className="mt-2 p-2 sm:p-3 bg-red-500/20 border border-red-500/50 rounded-lg flex items-center gap-2 text-red-400 text-xs sm:text-sm">
               <AlertCircle className="h-4 w-4 flex-shrink-0" />
               <p>{error}</p>
             </div>
           )}
         </div>
 
-        <div className="flex flex-col gap-6">
-          <div className="relative w-48 h-48 mx-auto">
+        <div className="flex flex-col gap-4 sm:gap-6">
+          <div className="relative w-32 h-32 sm:w-48 sm:h-48 mx-auto">
             <div className={`absolute inset-0 rounded-full ${isCallActive ? 'bg-green-900/20' : 'bg-gray-800/50'} flex items-center justify-center transition-all duration-300`}>
               <img
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
                 alt="AI Assistant"
-                className="w-40 h-40 rounded-full object-cover"
+                className="w-28 h-28 sm:w-40 sm:h-40 rounded-full object-cover"
               />
             </div>
             {isCallActive && (
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <div className="flex items-center justify-center bg-green-500/20 text-green-400 px-4 py-1 rounded-full text-sm backdrop-blur-sm">
+                <div className="flex items-center justify-center bg-green-500/20 text-green-400 px-3 sm:px-4 py-1 rounded-full text-xs sm:text-sm backdrop-blur-sm">
                   Active Call
                 </div>
               </div>
@@ -284,31 +292,33 @@ function AIAssistant({ assistantId }: AIAssistantProps) {
             <button
               onClick={toggleMute}
               disabled={!isCallActive}
-              className={`p-4 rounded-full transition-all duration-300 ${
+              className={`p-3 sm:p-4 rounded-full transition-all duration-300 ${
                 isCallActive
                   ? isMuted
                     ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
                     : 'bg-gray-700/50 text-gray-300 hover:bg-gray-700/70'
                   : 'bg-gray-800/50 text-gray-500 cursor-not-allowed'
               }`}
+              aria-label={isMuted ? "Unmute" : "Mute"}
             >
-              {isMuted ? <MicOff size={24} /> : <Mic size={24} />}
+              {isMuted ? <MicOff size={20} className="sm:w-6 sm:h-6" /> : <Mic size={20} className="sm:w-6 sm:h-6" />}
             </button>
 
             <button
               onClick={isCallActive ? endCall : startCall}
-              className={`p-4 rounded-full transition-all duration-300 ${
+              className={`p-3 sm:p-4 rounded-full transition-all duration-300 ${
                 isCallActive
                   ? 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
                   : 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
               }`}
+              aria-label={isCallActive ? "End Call" : "Start Call"}
             >
-              {isCallActive ? <PhoneOff size={24} /> : <Phone size={24} />}
+              {isCallActive ? <PhoneOff size={20} className="sm:w-6 sm:h-6" /> : <Phone size={20} className="sm:w-6 sm:h-6" />}
             </button>
           </div>
         </div>
 
-        <div className="mt-8 text-center text-sm text-gray-400">
+        <div className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-gray-400">
           {!hasPermission ? (
             <p>Click the phone button to grant microphone permission</p>
           ) : isCallActive ? (
