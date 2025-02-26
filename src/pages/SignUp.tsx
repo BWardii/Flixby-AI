@@ -57,21 +57,29 @@ function SignUp() {
   };
 
   return (
-    <div className="min-h-screen pt-16 pb-12">
-      <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold">
+    <div className="min-h-screen pt-16 pb-12 flex items-center justify-center">
+      <div className="w-full max-w-md px-4">
+        <div className="text-center mb-6">
+          <div className="flex justify-center mb-4">
+            <img 
+              src="/flixby-logo.png" 
+              alt="Flixby Logo" 
+              className="w-[180px] h-auto"
+            />
+          </div>
+          
+          <h1 className="text-2xl font-bold">
             <span className="bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
-              Create Account
+              Start your free trial
             </span>
           </h1>
-          <p className="text-gray-400 mt-2">
-            Join us and create your own AI assistant
+          <p className="text-gray-400 mt-1 text-sm">
+            No credit card required
           </p>
         </div>
 
-        <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-8 shadow-xl border border-gray-700/50">
-          <form onSubmit={handleEmailSignUp} className="space-y-6">
+        <div className="bg-gray-800/50 backdrop-blur-lg rounded-xl p-6 shadow-xl border border-gray-700/50">
+          <form onSubmit={handleEmailSignUp} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-1">
                 Full Name
@@ -163,7 +171,7 @@ function SignUp() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-3 rounded-lg font-medium hover:from-blue-600 hover:to-green-600 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-green-500 to-teal-500 text-white px-6 py-3 rounded-lg font-medium hover:from-green-600 hover:to-teal-600 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <>
@@ -173,13 +181,13 @@ function SignUp() {
               ) : (
                 <>
                   <UserPlus className="h-5 w-5" />
-                  <span>Sign Up</span>
+                  <span>Create Free Account</span>
                 </>
               )}
             </button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="mt-4 text-center">
             <p className="text-sm text-gray-400">
               Already have an account?{' '}
               <button
@@ -190,6 +198,15 @@ function SignUp() {
               </button>
             </p>
           </div>
+        </div>
+        
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-400">
+            By signing up, you agree to our{' '}
+            <a href="#" className="text-blue-400 hover:text-blue-300">Terms of Service</a>{' '}
+            and{' '}
+            <a href="#" className="text-blue-400 hover:text-blue-300">Privacy Policy</a>
+          </p>
         </div>
       </div>
     </div>

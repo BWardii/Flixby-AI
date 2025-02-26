@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ArrowRight, Zap, Shield, Cpu, Bot, X, Phone, Clock, Users, CheckCircle, MessageSquare, Calendar, Building2, Utensils, Briefcase, Plane, MicOff, Mic, Mail, Building } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Cpu, Bot, X, Phone, Clock, Users, CheckCircle, MessageSquare, Calendar, Building2, Utensils, Briefcase, Plane, MicOff, Mic, Mail, Building, Info } from 'lucide-react';
 import AIAssistant from '../components/AIAssistant';
 import { supabase } from '../lib/supabase';
+import { useNavigate } from 'react-router-dom';
 
 interface DemoFormData {
   name: string;
@@ -13,6 +14,7 @@ interface DemoFormData {
 }
 
 function Home() {
+  const navigate = useNavigate();
   const [showDemoModal, setShowDemoModal] = useState(false);
   const [showAIAssistant, setShowAIAssistant] = useState(false);
   const [formData, setFormData] = useState<DemoFormData>({
@@ -180,16 +182,30 @@ function Home() {
                   className="w-[300px] max-w-full h-auto"
                 />
                 <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                  Your 24/7 AI Phone Assistant
+                  Your 24/7 AI Answering Service
                 </h2>
               </div>
 
-              <p className="text-gray-400 text-xl max-w-2xl mx-auto lg:mx-0 mb-8 leading-relaxed">
-              Flixby AI answers your business calls 24/7—just like a real assistant.
-              Set it up in minutes, train it on your business, and let AI handle queries, book reservations, and converse naturally
-              </p>
+              <div className="space-y-4">
+                <p className="text-gray-400 text-xl max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                  Never miss a business call again. Flixby's AI Answering Service handles customer calls 24/7 with human-like conversations
+                  resolving inquiries, booking appointments.
+                </p>
+                
+                <p className="text-lg text-purple-300 font-medium max-w-2xl mx-auto lg:mx-0 border-l-4 border-purple-500 pl-4 transform hover:translate-x-1 transition-transform">
+                  Set up in minutes, customize it to your business, and let Flixby do the talking.
+                </p>
+              </div>
 
               <div className="flex items-center justify-center lg:justify-start space-x-4">
+                <button 
+                  onClick={() => navigate('/sign-up')}
+                  className="group bg-gradient-to-r from-green-500 to-teal-500 text-white px-8 py-3 rounded-full font-medium hover:from-green-600 hover:to-teal-600 transition-all duration-300 flex items-center transform hover:scale-105"
+                >
+                  Create an Agent in 30 seconds
+                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+                
                 <button 
                   onClick={() => setShowDemoModal(true)}
                   className="group bg-gradient-to-r from-purple-500 to-blue-500 text-white px-8 py-3 rounded-full font-medium hover:from-purple-600 hover:to-blue-600 transition-all duration-300 flex items-center transform hover:scale-105"
@@ -260,161 +276,224 @@ function Home() {
       {/* Demo Request Modal */}
       {showDemoModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="relative w-full max-w-lg bg-gray-900 rounded-2xl shadow-2xl">
+          <div className="relative w-full max-w-5xl bg-gray-900 rounded-2xl shadow-2xl">
             <button
               onClick={() => setShowDemoModal(false)}
               className="absolute -top-4 -right-4 w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
-            <div className="p-8">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">
-                  Request a Demo
-                </h3>
-                <p className="text-gray-400">
-                  Experience the power of Flixby firsthand with a personalized demo
-                </p>
+            <div className="grid grid-cols-1 md:grid-cols-2">
+              {/* Left Side - Information */}
+              <div className="p-8 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-l-2xl">
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-6">
+                  The phone doesn't sleep,<br />so why should your business?
+                </h2>
+                
+                <div className="space-y-6">
+                  <p className="text-xl text-gray-300">
+                    Your phone calls, answered.
+                  </p>
+                  
+                  <p className="text-gray-400 leading-relaxed">
+                    Our digital phone concierge allows you to answer questions, take reservations, 
+                    book appointments and satisfy callers.
+                  </p>
+
+                  <div className="space-y-4 mt-8">
+                    <div className="flex items-center space-x-3 text-gray-300">
+                      <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
+                        <Phone className="w-6 h-6 text-green-400" />
+                      </div>
+                      <div>
+                        <span className="block text-2xl font-bold text-white">100%</span>
+                        <span className="text-sm text-gray-400">Calls Answered</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-3 text-gray-300">
+                      <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
+                        <Bot className="w-6 h-6 text-blue-400" />
+                      </div>
+                      <div>
+                        <span className="block text-2xl font-bold text-white">80%</span>
+                        <span className="text-sm text-gray-400">Handled Without Team Involvement</span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center space-x-3 text-gray-300">
+                      <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
+                        <Clock className="w-6 h-6 text-purple-400" />
+                      </div>
+                      <div>
+                        <span className="block text-2xl font-bold text-white">24/7</span>
+                        <span className="text-sm text-gray-400">Availability</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-8 p-4 bg-gray-800/50 rounded-lg border border-gray-700/50">
+                    <div className="flex items-start space-x-3">
+                      <Info className="w-5 h-5 text-blue-400 flex-shrink-0 mt-1" />
+                      <p className="text-sm text-gray-400">
+                        Schedule a demo to see how Flixby can transform your business 
+                        communications and provide round-the-clock customer service.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">
-                    Full Name
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Users className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      required
-                      className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
-                      placeholder="Enter your name"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">
-                    Email
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Mail className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      required
-                      className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
-                      placeholder="Enter your email"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">
-                    Company
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Building className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="text"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      required
-                      className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
-                      placeholder="Enter your company name"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">
-                    Preferred Demo Date
-                  </label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <Calendar className="h-5 w-5 text-gray-400" />
-                    </div>
-                    <input
-                      type="date"
-                      value={formData.demoDate}
-                      onChange={(e) => setFormData({ ...formData, demoDate: e.target.value })}
-                      min={minDate}
-                      max={maxDateStr}
-                      required
-                      className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
-                    />
-                  </div>
-                  <p className="mt-1 text-sm text-gray-400">
-                    Select a date between tomorrow and 3 months from now
+              {/* Right Side - Form */}
+              <div className="p-8">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent mb-2">
+                    Request a Demo
+                  </h3>
+                  <p className="text-gray-400">
+                    Experience the power of Flixby firsthand with a personalized demo
                   </p>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    className="block w-full px-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
-                    placeholder="Tell us about your needs"
-                    rows={4}
-                  />
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    id="newsletter"
-                    checked={formData.newsletter}
-                    onChange={(e) => setFormData({ ...formData, newsletter: e.target.checked })}
-                    className="h-4 w-4 rounded border-gray-700 bg-gray-800/50 text-purple-500 focus:ring-purple-500/50"
-                  />
-                  <label htmlFor="newsletter" className="ml-2 text-sm text-gray-300">
-                    Keep me updated with news and offers
-                  </label>
-                </div>
-
-                {error && (
-                  <div className="bg-red-500/20 border border-red-500/50 rounded-lg px-4 py-3 text-red-400">
-                    {error}
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                      Full Name
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Users className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        required
+                        className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
+                        placeholder="Enter your name"
+                      />
+                    </div>
                   </div>
-                )}
 
-                {success && (
-                  <div className="bg-green-500/20 border border-green-500/50 rounded-lg px-4 py-3 text-green-400">
-                    {success}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                      Email
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Mail className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
+                        className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
+                        placeholder="Enter your email"
+                      />
+                    </div>
                   </div>
-                )}
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-600 hover:to-blue-600 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {loading ? (
-                    <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                      <span>Submitting...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Calendar className="h-5 w-5" />
-                      <span>Schedule Demo</span>
-                    </>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                      Company
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Building className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="text"
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        required
+                        className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
+                        placeholder="Enter your company name"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                      Preferred Demo Date
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Calendar className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        type="date"
+                        value={formData.demoDate}
+                        onChange={(e) => setFormData({ ...formData, demoDate: e.target.value })}
+                        min={minDate}
+                        max={maxDateStr}
+                        required
+                        className="block w-full pl-10 pr-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
+                      />
+                    </div>
+                    <p className="mt-1 text-sm text-gray-400">
+                      Select a date between tomorrow and 3 months from now
+                    </p>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-1">
+                      Message
+                    </label>
+                    <textarea
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      required
+                      className="block w-full px-3 py-2 border border-gray-700 rounded-lg bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent"
+                      placeholder="Tell us about your needs"
+                      rows={4}
+                    />
+                  </div>
+
+                  <div className="flex items-center">
+                    <input
+                      type="checkbox"
+                      id="newsletter"
+                      checked={formData.newsletter}
+                      onChange={(e) => setFormData({ ...formData, newsletter: e.target.checked })}
+                      className="h-4 w-4 rounded border-gray-700 bg-gray-800/50 text-purple-500 focus:ring-purple-500/50"
+                    />
+                    <label htmlFor="newsletter" className="ml-2 text-sm text-gray-300">
+                      Keep me updated with news and offers
+                    </label>
+                  </div>
+
+                  {error && (
+                    <div className="bg-red-500/20 border border-red-500/50 rounded-lg px-4 py-3 text-red-400">
+                      {error}
+                    </div>
                   )}
-                </button>
-              </form>
+
+                  {success && (
+                    <div className="bg-green-500/20 border border-green-500/50 rounded-lg px-4 py-3 text-green-400">
+                      {success}
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full bg-gradient-to-r from-purple-500 to-blue-500 text-white px-6 py-3 rounded-lg font-medium hover:from-purple-600 hover:to-blue-600 transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loading ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                        <span>Submitting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Calendar className="h-5 w-5" />
+                        <span>Schedule Demo</span>
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -597,4 +676,3 @@ function Home() {
 }
 
 export default Home;
-
