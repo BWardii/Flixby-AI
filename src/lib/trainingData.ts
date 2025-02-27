@@ -182,7 +182,7 @@ async function fetchGooglePlacesSuggestions(searchTerm: string, location?: strin
     const response = await fetch(url);
     
     if (!response.ok) {
-      throw new Error(`Places search error: ${response.statusText}`);
+      throw new Error(`API error: ${response.status}`);
     }
     
     const places = await response.json();
@@ -449,69 +449,4 @@ function getBusinessTypesBySearchTerm(term: string): string[] {
     'retail': ['Store', 'Shop', 'Boutique', 'Retailer', 'Market'],
     'technology': ['Tech Company', 'IT Services', 'Software Development'],
     'consulting': ['Consulting Firm', 'Advisory Services', 'Consultancy'],
-    'agency': ['Agency', 'Creative Studio', 'Marketing Agency'],
-    'legal': ['Law Firm', 'Legal Services', 'Solicitors'],
-    'healthcare': ['Medical Centre', 'Clinic', 'Healthcare Provider'],
-    'dental': ['Dental Practice', 'Dentist', 'Orthodontist'],
-    'hotel': ['Hotel', 'Lodge', 'Inn', 'Accommodations'],
-    'automotive': ['Auto Shop', 'Car Dealership', 'Mechanic'],
-    'repair': ['Repair Shop', 'Fix-It Service', 'Maintenance'],
-    'plumbing': ['Plumbing Service', 'Plumber', 'Water Systems'],
-    'electrical': ['Electrical Service', 'Electrician', 'Electric Repairs'],
-    'pet': ['Pet Store', 'Pet Supplies', 'Animal Care'],
-    'veterinary': ['Veterinary Clinic', 'Animal Hospital', 'Pet Care'],
-    'cleaning': ['Cleaning Service', 'Janitorial', 'Housekeeping'],
-    'real estate': ['Estate Agent', 'Property Management', 'Property Consultants'],
-    'education': ['School', 'Academy', 'Learning Centre', 'Education Centre'],
-    'construction': ['Construction Company', 'Builders', 'Contractors'],
-    'photography': ['Photography Studio', 'Photo Services', 'Photographer'],
-    'design': ['Design Studio', 'Graphic Design', 'Creative Agency'],
-    'art': ['Art Gallery', 'Art Studio', 'Craft Shop', 'Artist Workshop']
-  };
-  
-  return relatedTypes[businessType] || ['Business', 'Company', 'Services'];
-}
-
-// Helper to generate random location
-function getRandomLocation(): string {
-  const cities = ['London', 'Manchester', 'Birmingham', 'Liverpool', 'Glasgow', 'Edinburgh', 'Cardiff', 'Belfast', 'Leeds', 'Sheffield'];
-  const counties = ['Greater London', 'Greater Manchester', 'West Midlands', 'Merseyside', 'Lanarkshire', 'Midlothian', 'South Glamorgan', 'County Antrim', 'West Yorkshire', 'South Yorkshire'];
-  
-  const index = Math.floor(Math.random() * cities.length);
-  return `${cities[index]}, ${counties[index]}`;
-}
-
-// Helper to generate business description
-function generateBusinessDescription(name: string, type: string, yearEstablished: string, location: string): string {
-  const descriptions: Record<string, string[]> = {
-    'restaurant': [
-      `${name} is a beloved ${type} establishment serving delicious cuisine since ${yearEstablished}. Located in ${location}, we pride ourselves on using fresh, locally-sourced ingredients and providing an exceptional dining experience for our guests.`,
-      `Established in ${yearEstablished}, ${name} offers a unique dining experience in the heart of ${location}. We specialise in crafting memorable meals in a welcoming atmosphere that keeps our customers coming back.`,
-      `Welcome to ${name}, ${location}'s premier dining destination since ${yearEstablished}. Our passionate chefs create innovative dishes that celebrate local flavours and global culinary traditions.`
-    ],
-    'cafe': [
-      `${name} is a cozy café in ${location} that has been serving premium coffee and delightful treats since ${yearEstablished}. We're committed to creating a warm, inviting space where our community can gather and connect.`,
-      `Since ${yearEstablished}, ${name} has been ${location}'s favourite spot for specialty coffee, artisanal teas, and freshly baked goods. We source our beans ethically and roast them with care.`,
-      `${name} is more than just a café—we're a local institution in ${location} since ${yearEstablished}. Our passion for quality coffee and exceptional service creates a unique experience for every customer.`
-    ],
-    'retail': [
-      `${name} has been a trusted retailer in ${location} since ${yearEstablished}, offering a carefully curated selection of high-quality products. Our knowledgeable staff is dedicated to providing personalised service.`,
-      `Established in ${yearEstablished}, ${name} is ${location}'s destination for premium shopping. We take pride in our product selection and commitment to customer satisfaction.`,
-      `At ${name}, we've been serving the ${location} community since ${yearEstablished} with unique merchandise and exceptional customer service. Our mission is to provide products that enhance our customers' lives.`
-    ],
-    'healthcare': [
-      `${name} has been providing compassionate healthcare services to the ${location} community since ${yearEstablished}. Our dedicated team of professionals is committed to your health and wellbeing.`,
-      `Established in ${yearEstablished}, ${name} delivers patient-centered healthcare with a focus on excellence and innovation. We're proud to serve ${location} with comprehensive medical services.`,
-      `${name} is a trusted healthcare provider in ${location} since ${yearEstablished}. Our experienced practitioners combine cutting-edge medical technology with personalised care.`
-    ]
-  };
-  
-  // Get descriptions specific to the business type or use generic descriptions
-  const specificDescriptions = descriptions[type] || [
-    `${name} is a leading ${type} business serving ${location} since ${yearEstablished}. We're committed to excellence and customer satisfaction in everything we do.`,
-    `Established in ${yearEstablished}, ${name} provides top-quality ${type} services to clients throughout ${location}. Our experienced team delivers professional solutions tailored to your needs.`,
-    `${name} has proudly served the ${location} area since ${yearEstablished}. As a trusted local ${type} business, we combine expertise with personalised service to exceed our customers' expectations.`
-  ];
-  
-  return specificDescriptions[Math.floor(Math.random() * specificDescriptions.length)];
-}
+    'agency': ['Agency', 'Creative Studio', 'Marketin
