@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
-=======
-import React, { useState } from 'react';
->>>>>>> main
 import { ArrowRight, Zap, Shield, Cpu, Bot, X, Phone, Clock, Users, CheckCircle, MessageSquare, Calendar, Building2, Utensils, Briefcase, Plane, MicOff, Mic, Mail, Building, Info } from 'lucide-react';
 import AIAssistant from '../components/AIAssistant';
 import { supabase } from '../lib/supabase';
@@ -514,11 +510,7 @@ function Home() {
               <X className="w-4 h-4" />
             </button>
             <div className="p-6">
-<<<<<<< HEAD
               <LazyAIAssistant />
-=======
-              <AIAssistant />
->>>>>>> main
             </div>
           </div>
         </div>
@@ -675,11 +667,7 @@ function Home() {
           </div>
           
           <div className="transform hover:scale-[1.02] transition-all duration-500">
-<<<<<<< HEAD
             <LazyAIAssistant />
-=======
-            <AIAssistant />
->>>>>>> main
           </div>
         </div>
       </section>
@@ -687,7 +675,6 @@ function Home() {
   );
 }
 
-<<<<<<< HEAD
 // Lazy-loaded AIAssistant component that only initializes when rendered
 const LazyAIAssistant = () => {
   const [mounted, setMounted] = useState(false);
@@ -743,6 +730,4 @@ const LazyAIAssistant = () => {
   return <AIAssistant />;
 };
 
-=======
->>>>>>> main
 export default Home;

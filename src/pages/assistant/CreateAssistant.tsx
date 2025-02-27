@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Bot, Sparkles, Globe, Edit, Info, ArrowRight, CheckCircle, AlertCircle, Trash2, Loader2, Search, X, MapPin } from 'lucide-react';
 import AIAssistantConfig from '../../components/AIAssistantConfig';
@@ -393,74 +392,59 @@ function CreateAssistant() {
                   </div>
                   <div>
                     <h3 className="font-medium text-white">Google Business Profile</h3>
-                    <p className="text-sm text-gray-400">Search for your business to load information</p>
+                    <p className="text-sm text-gray-400">Connect your Google Business listing</p>
                   </div>
                 </div>
                 
                 <div className="mt-4 space-y-3">
                   <div className="relative">
                     <input
-                      ref={searchInputRef}
                       type="text"
                       value={businessName}
                       onChange={(e) => setBusinessName(e.target.value)}
-                      onFocus={() => {
-                        setIsInputFocused(true);
-                        if (placeSuggestions.length > 0) setShowSuggestions(true);
-                      }}
-                      onBlur={() => setIsInputFocused(false)}
                       placeholder="Business Name"
                       className="w-full bg-gray-800/50 border border-gray-700/50 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all duration-300"
+                      onFocus={() => setIsInputFocused(true)}
+                      onBlur={() => setIsInputFocused(false)}
+                      ref={searchInputRef}
                     />
                     {loading.suggestions ? (
                       <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
                         <Loader2 className="h-4 w-4 text-gray-400 animate-spin" />
                       </div>
-                    ) : businessName && (
+                    ) : businessName.length > 0 ? (
                       <button 
-                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-300"
                         onClick={() => setBusinessName('')}
                       >
                         <X className="h-4 w-4" />
                       </button>
-                    )}
+                    ) : null}
                     
                     {/* Business suggestions dropdown */}
-                    {showSuggestions && (
+                    {showSuggestions && placeSuggestions.length > 0 && (
                       <div 
-                        ref={suggestionsPanelRef}
                         className="absolute z-10 mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg shadow-lg"
+                        ref={suggestionsPanelRef}
                       >
-                        {error.suggestions && (
-                          <div className="px-3 py-2 text-xs text-amber-400 bg-amber-900/20 border-b border-gray-700">
-                            <AlertCircle className="h-3 w-3 inline-block mr-1" />
-                            {error.suggestions}
-                          </div>
-                        )}
                         <ul className="py-1 max-h-60 overflow-auto">
-                          {placeSuggestions.length === 0 ? (
-                            <li className="px-4 py-2 text-gray-400 text-sm">
-                              No results found
-                            </li>
-                          ) : (
-                            placeSuggestions.map((suggestion) => (
-                              <li 
-                                key={suggestion.id}
-                                className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
-                                onMouseDown={() => handleSelectPlaceSuggestion(suggestion)}
-                              >
-                                <div className="flex items-center">
-                                  <div>
-                                    <div className="text-white font-medium">{suggestion.mainText}</div>
-                                    <div className="flex items-center text-xs text-gray-400">
-                                      <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
-                                      <span>{suggestion.secondaryText}</span>
-                                    </div>
+                          {placeSuggestions.map((suggestion) => (
+                            <li 
+                              key={suggestion.id}
+                              className="px-4 py-2 hover:bg-gray-700 cursor-pointer"
+                              onMouseDown={() => handleSelectPlaceSuggestion(suggestion)}
+                            >
+                              <div className="flex items-center">
+                                <div>
+                                  <div className="text-white font-medium">{suggestion.mainText}</div>
+                                  <div className="flex items-center text-xs text-gray-400">
+                                    <MapPin className="h-3 w-3 mr-1" />
+                                    <span>{suggestion.secondaryText}</span>
                                   </div>
                                 </div>
-                              </li>
-                            ))
-                          )}
+                              </div>
+                            </li>
+                          ))}
                         </ul>
                       </div>
                     )}
@@ -477,10 +461,13 @@ function CreateAssistant() {
                   {error.google && (
                     <p className="text-xs text-red-400">{error.google}</p>
                   )}
+                  {error.suggestions && (
+                    <p className="text-xs text-amber-400">{error.suggestions}</p>
+                  )}
                   <div className="flex justify-end">
                     <button
                       onClick={() => handleFetchGoogleData('')}
-                      disabled={loading.google || !businessName}
+                      disabled={loading.google || !businessName.trim()}
                       className="bg-gradient-to-r from-red-500 to-purple-500 text-white px-4 py-2.5 rounded-lg font-medium hover:from-red-600 hover:to-purple-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
                     >
                       {loading.google ? (
@@ -524,7 +511,7 @@ function CreateAssistant() {
           </div>
           
           {(websiteData || googleData) && (
-            <div className="mt-6 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
+            <div className="mt-4 p-4 bg-green-500/10 border border-green-500/30 rounded-lg">
               <div className="flex items-start">
                 <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 mr-2 flex-shrink-0" />
                 <p className="text-sm text-green-300">
@@ -575,13 +562,6 @@ function CreateAssistant() {
       </div>
     </div>
   );
-=======
-import React from 'react';
-import AIAssistantConfig from '../../components/AIAssistantConfig';
-
-function CreateAssistant() {
-  return <AIAssistantConfig />;
->>>>>>> main
 }
 
 export default CreateAssistant;
