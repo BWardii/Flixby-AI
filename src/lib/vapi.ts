@@ -4,11 +4,7 @@ import Vapi from '@vapi-ai/web';
 let vapiInstance: Vapi | null = null;
 
 // Use the webcall API key for initialization
-<<<<<<< HEAD
 const WEBCALL_API_KEY = import.meta.env.VITE_VAPI_PUBLIC_KEY || 'fb554eaf-b79c-45df-be1c-7f766e322f87';
-=======
-const WEBCALL_API_KEY = 'fb554eaf-b79c-45df-be1c-7f766e322f87';
->>>>>>> main
 
 export function initializeVapi(): Vapi {
   if (vapiInstance) {
