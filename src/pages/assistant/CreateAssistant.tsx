@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Bot, Sparkles, Globe, Edit, Info, ArrowRight, CheckCircle, AlertCircle, Trash2, Loader2, Search, X, MapPin } from 'lucide-react';
 import AIAssistantConfig from '../../components/AIAssistantConfig';
@@ -574,6 +575,13 @@ function CreateAssistant() {
       </div>
     </div>
   );
+=======
+import React from 'react';
+import AIAssistantConfig from '../../components/AIAssistantConfig';
+
+function CreateAssistant() {
+  return <AIAssistantConfig />;
+>>>>>>> main
 }
 
 export default CreateAssistant;
