@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import React, { useState, useEffect } from 'react';
+=======
 import React, { useState } from 'react';
+>>>>>>> main
 import { ArrowRight, Zap, Shield, Cpu, Bot, X, Phone, Clock, Users, CheckCircle, MessageSquare, Calendar, Building2, Utensils, Briefcase, Plane, MicOff, Mic, Mail, Building, Info } from 'lucide-react';
 import AIAssistant from '../components/AIAssistant';
 import { supabase } from '../lib/supabase';
@@ -510,7 +514,11 @@ function Home() {
               <X className="w-4 h-4" />
             </button>
             <div className="p-6">
+<<<<<<< HEAD
+              <LazyAIAssistant />
+=======
               <AIAssistant />
+>>>>>>> main
             </div>
           </div>
         </div>
@@ -667,7 +675,11 @@ function Home() {
           </div>
           
           <div className="transform hover:scale-[1.02] transition-all duration-500">
+<<<<<<< HEAD
+            <LazyAIAssistant />
+=======
             <AIAssistant />
+>>>>>>> main
           </div>
         </div>
       </section>
@@ -675,4 +687,62 @@ function Home() {
   );
 }
 
+<<<<<<< HEAD
+// Lazy-loaded AIAssistant component that only initializes when rendered
+const LazyAIAssistant = () => {
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  
+  if (!mounted) {
+    return (
+      <div className="relative bg-gray-800/50 backdrop-blur-lg rounded-3xl shadow-2xl p-8 w-full max-w-md mx-auto">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent mb-2">
+            AI Assistant
+          </h2>
+          <p className="text-gray-300">Ready to start</p>
+        </div>
+
+        <div className="flex flex-col gap-6">
+          <div className="relative w-48 h-48 mx-auto">
+            <div className="absolute inset-0 rounded-full bg-gray-800/50 flex items-center justify-center transition-all duration-300">
+              <img
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80"
+                alt="AI Assistant"
+                className="w-40 h-40 rounded-full object-cover"
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-center gap-4">
+            <button
+              disabled={true}
+              className="p-4 rounded-full bg-gray-800/50 text-gray-500 cursor-not-allowed"
+            >
+              <Mic size={24} />
+            </button>
+
+            <button
+              className="p-4 rounded-full bg-green-500/20 text-green-400 hover:bg-green-500/30"
+            >
+              <Phone size={24} />
+            </button>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center text-sm text-gray-400">
+          <p>Click the phone button to start a conversation with the AI Assistant</p>
+        </div>
+      </div>
+    );
+  }
+  
+  return <AIAssistant />;
+};
+
+=======
+>>>>>>> main
 export default Home;
